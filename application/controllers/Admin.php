@@ -168,9 +168,11 @@ class Admin extends CI_Controller
 			$status = $this->admin_model->addUser($post);
 
 			if($status){
-				echo "success";
+				$this->session->set_flashdata('success', 'User is added successfully');
+				redirect('admin/user-listing');
 			}else{
-				echo "failed";
+				$this->session->set_flashdata('error', 'Technical Error');
+				redirect_back();
 			}
 
 		}

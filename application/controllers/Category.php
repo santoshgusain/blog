@@ -78,10 +78,35 @@ class Category extends CI_Controller {
 			// pr($vSubCategoryName);
 			$status  = $this->category_model->addCategory($category,$sub_category);
 			if($status){
-				echo "success";
+				$this->session->set_flashdata('success','Category added successfully');
+				redirect('category/category-listing');
+
 			}else{
-				echo "failed";
+				$this->session->set_flashdata('success','Technical Error');
+				redirect_back();
 			}
+		}
+	}
+
+	public function delete_category(){
+			
+		$token = unserialize(decode($_GET['token']));
+		extract($token);
+
+		if(empty($iCategoryId)){
+			return redirect_back();
+		}
+		$set['dDeletedDate'] = date('Y-m-d H:i:s');
+		$this->db->trans_start();
+			$this->db->where('iCategoryId',$iCategoryId)->delete('category');
+			$this->db->where('iCategoryId',$iCategoryId)->delete('subcategory');
+		$this->db->trans_complete();
+		if( $this->db->trans_status() === false ){
+			$this->session->set_flashdata('error',"Technical error");
+			redirect_back();
+		}else{
+			$this->session->set_flashdata('success',"Category has been deleted successfully");
+			redirect_back();
 		}
 	}
 }

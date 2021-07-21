@@ -51,11 +51,8 @@ class Category_model extends CI_Model{
             if ($searchValue != '') {
 
                 $searchValue = $this->db->escape_str($searchValue);
-                $searchQuery .= " (CONCAT_WS(' ',vFirstName, vLastName) like '%" . $searchValue . "%' ";
-                $searchQuery .= " or vEmail like'%" . $searchValue . "%' ";
-                $searchQuery .= " or vPhone like'%" . $searchValue . "%' ";
-                $searchQuery .= " or tAddress like'%" . $searchValue . "%' ";
-                // $searchQuery .= " or DATE(dCreatedDateTime) like'%" . date_format(date_create(convertTimeZone(date('Y-m-d H:i:s', strtotime($searchValue)), 'US/Central', 'UTC')), 'Y-m-d') . "%'  ";
+                $searchQuery .= " (vCategoryName like '%" . $searchValue . "%' ";
+                $searchQuery .= " or vSubCategoryName like'%" . $searchValue . "%' ";
                 $searchQuery .= " ) ";
             }
 
@@ -63,28 +60,30 @@ class Category_model extends CI_Model{
             $this->db->select('count(*) as allcount');
             $this->db->from("category c");
             $this->db->join("subcategory sc",'sc.iCategoryId = c.iCategoryId','left');
+            $this->db->group_by('c.iCategoryId');
             $query = $this->db->get();
-            $records = $query->row();
-            $totalRecords = $records->allcount;
+            $totalRecords = $query->num_rows();
 
             // Total number of record with filtering
             $this->db->select('count(*) as allcount');
             $this->db->from("category c");
             $this->db->join("subcategory sc",'sc.iCategoryId = c.iCategoryId','left');
+            $this->db->group_by('c.iCategoryId');
             if ($searchQuery != '') {
                 $this->db->where($searchQuery);
             }
-            $records = $this->db->get()->row();
-            $totalRecordwithFilter = $records->allcount;
+            $records = $this->db->get()->num_rows();
+            // pr($records);
+            $totalRecordwithFilter = $records;
 
             // Fetch records
             $this->db->select("c.*,GROUP_CONCAT(sc.vSubCategoryName) as vSubCategoryName");
             $this->db->from("category c");
             $this->db->join("subcategory sc",'sc.iCategoryId = c.iCategoryId','left');
+            $this->db->group_by('c.iCategoryId');
             if ($searchQuery != '') {
                 $this->db->where($searchQuery);
             }
-            $this->db->group_by('c.iCategoryId');
             if (!empty($columnName)) {
                 $this->db->order_by($columnName, $columnSortOrder);
             }
@@ -99,14 +98,11 @@ class Category_model extends CI_Model{
             $i = $start + 1;
             foreach ($records as $record) {
 
-                // $newcreatedDate = convertTimeZone($record->dCreatedDate, 'UTC', $this->user_data["timezone"]);
-                // $createdDate = !empty($newcreatedDate) ? date('m/d/Y h:i A', strtotime($newcreatedDate)) : "";
-
                 $token       = ["iCategoryId"    => $record->iCategoryId];
                 $token       = serialize($token);
                 $token       = encode($token);
-                $edit_url    = base_url("admin/agent/add-agent?token=") . $token;
-                $delete_url  = base_url("admin/agent/delete-agent?token=") . $token;
+                $edit_url    = base_url("category/edit-category?edit=1&token=") . $token;
+                $delete_url  = base_url("category/delete-category?token=") . $token;
 
                 $buttons = "<div class=''>  "; //action btn started
 

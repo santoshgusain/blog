@@ -55,7 +55,7 @@ if(isset($post)){
                                   <div class="row">
                                       <div class="form-group col-md-6">
                                           <label for="exampleInputEmail1">Title</label>
-                                          <input type="text" name="vTitle" value="<?= $vTitle?>" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                          <input type="text" name="vTitle" value="<?= $vTitle?>" class="form-control" id="exampleInputEmail1" placeholder="Enter Title">
                                           <?= form_error('vTitle')?>
                                       </div>
                                       <div class="form-group col-md-6">
@@ -85,9 +85,9 @@ if(isset($post)){
                                             <label>Sub-Category</label>
                                             <select name="iSubCategoryId" id="iSubCategoryId" class="form-control">
                                             <option selected>-select-</option>
-                                            <?php foreach($subcategory as $row){?>
+                                            <?php if(!empty($iPostId)){foreach($subcategory as $row){?>
                                                 <option <?= ($iSubCategoryId == $row->iSubCategoryId)?'selected':'' ?> value="<?= $row->iSubCategoryId	??'' ?>"><?= ucwords($row->vSubCategoryName) ?></option>
-                                            <?php }?>
+                                            <?php }}?>
                                             </select>
                                         </div>
                                       </div>

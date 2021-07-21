@@ -39,7 +39,7 @@ class Admin_model extends CI_Model{
                 $searchValue = $this->db->escape_str($searchValue);
                 $searchQuery .= " (CONCAT_WS(' ',vFirstName, vLastName) like '%" . $searchValue . "%' ";
                 $searchQuery .= " or vEmail like'%" . $searchValue . "%' ";
-                $searchQuery .= " or vPhone like'%" . $searchValue . "%' ";
+                $searchQuery .= " or vMobile like'%" . $searchValue . "%' ";
                 $searchQuery .= " or tAddress like'%" . $searchValue . "%' ";
                 // $searchQuery .= " or DATE(dCreatedDateTime) like'%" . date_format(date_create(convertTimeZone(date('Y-m-d H:i:s', strtotime($searchValue)), 'US/Central', 'UTC')), 'Y-m-d') . "%'  ";
                 $searchQuery .= " ) ";

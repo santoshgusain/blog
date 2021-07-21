@@ -106,7 +106,7 @@ class Post extends CI_Controller {
 
 			$post 	= sanitizeInput($this->input->post());
 
-			if( isset($post['iPostId']) ){
+			if( !empty($post['iPostId']) ){
 
 				// upload profile pic
 				if ($_FILES['vFeaturedImage']['name']) {
@@ -188,6 +188,7 @@ class Post extends CI_Controller {
 		}
 		$set['dDeletedDate'] = date('Y-m-d H:i:s');
 		$this->db->where('iPostId',$iPostId)->update('post',$set);
+		$this->session->set_flashdata('success',"Post has been deleted successfully");
 		redirect_back();
 	}
 

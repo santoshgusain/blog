@@ -36,31 +36,31 @@
                                   <div class="row">
                                       <div class="form-group col-md-6">
                                           <label for="exampleInputEmail1">First Name</label>
-                                          <input type="text" name="vFirstName" class="form-control" id="vFirstName" placeholder="Enter email">
+                                          <input type="text" name="vFirstName" class="form-control" id="vFirstName" placeholder="Enter First Name">
                                           <?= form_error('vFirstName')?>
                                       </div>
                                       <div class="form-group col-md-6">
                                           <label for="exampleInputEmail1">Last Name</label>
-                                          <input type="text" name="vLastName" class="form-control" id="vLastName" placeholder="Enter email">
+                                          <input type="text" name="vLastName" class="form-control" id="vLastName" placeholder="Enter Last Name">
                                           <?= form_error('vLastName')?>
                                       </div>
                                   </div>
                                   <div class="row">
                                       <div class="form-group col-md-6">
                                           <label for="exampleInputEmail1">Email Address</label>
-                                          <input type="email" name="vEmail" class="form-control" id="vEmail" placeholder="Enter email">
+                                          <input type="email" name="vEmail" class="form-control" id="vEmail" placeholder="Enter Email">
                                           <?= form_error('vEmail')?>
                                       </div>
                                       <div class="form-group col-md-6">
                                           <label for="exampleInputPassword1">Mobile Number</label>
-                                          <input type="text" name="vMobile" class="form-control" id="vMobile" placeholder="Password">
+                                          <input type="text" name="vMobile" class="form-control" id="vMobile" placeholder="Enter Mobile Number">
                                           <?= form_error('vMobile')?>
                                       </div>
                                   </div>
                                   <div class="row">
                                       <div class="form-group col-md-12">
                                           <label for="exampleInputEmail1">Address</label>
-                                          <textarea class="form-control" name="tAddress" id="tAddress" rows="2"></textarea>
+                                          <textarea placeholder='Enter Address' class="form-control" name="tAddress" id="tAddress" rows="2"></textarea>
                                           <?= form_error('tAddress')?>
                                       </div>
                                   </div>
